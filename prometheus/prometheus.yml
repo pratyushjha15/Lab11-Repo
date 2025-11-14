@@ -1,0 +1,16 @@
+# prometheus/prometheus.yml
+global:
+  scrape_interval: 15s # Scrapes every 15 seconds
+
+scrape_configs:
+  # This job scrapes Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # THIS IS THE IMPORTANT ONE FOR YOUR APP
+  - job_name: 'my-python-api'
+    # We use host.docker.internal to allow the Prometheus container
+    # to find the app running on your main machine (the "host")
+    static_configs:
+      - targets: ['host.docker.internal:5000']
